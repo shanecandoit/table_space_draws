@@ -30,12 +30,7 @@ class Grid {
       HashMap<Integer, String> row = tableRows.get(x);
       for (Integer y : row.keySet()) {
         String t = row.get(y);
-        print("cell", x, y, t);
-        //if (t.length()<1) {
-        //  continue;
-        //}
-        //println("draw",x,t);
-        // cell
+        //print("cell", x, y, t);
         stroke(0);
         fill(255);
         int x1=x-1;
