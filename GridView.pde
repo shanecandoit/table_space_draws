@@ -1,12 +1,16 @@
 
+// GridView has data just for ui, position, or col width stuff
+// A Grid should be viewable with two different GridViews
 class GridView {
 
 
   public GridView() {
+    //int rowH=20;
+    //int colW=60;
     this.x=100;
     this.y=100;
-    this.w=400;
-    this.h=400;
+    this.w=4*60;
+    this.h=4*20;
   }
 
   private int x;

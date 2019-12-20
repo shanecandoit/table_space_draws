@@ -1,7 +1,10 @@
 
 import java.util.Set;
 
-// Table just has data
+// Grid just has data no ui, position, or col width stuff
+// was named Table 
+// but processing has built in Table
+// https://processing.org/reference/Table.html
 class Grid {
 
   public void draw() {
@@ -9,35 +12,41 @@ class Grid {
     // rect background
     int tx = this.tableView.getX();
     int ty = this.tableView.getY();
-    int w = this.tableView.getY();
-    int h = this.tableView.getY();
+    int w = this.tableView.getW();
+    int h = this.tableView.getH();
     fill(255);
     rect(tx, ty, w, h);
+    //if(1<2){return;}
 
     // header
     fill(30);
-    rect(tx-2, ty-20, w+4, 20);
+    rect(tx-2, ty, w+4, 20);
     fill(255);
-    text("table header", tx+2, ty);
+    text("table header", tx+2, ty+20);
     fill(255);
 
     // text
     int rowH=20;
-    int colW=60;
+    int colW=60; //<>//
     Set<Integer> rowKeys = tableRows.keySet();
     for (Integer x : rowKeys) {
+      int rowI = x;
       //println("draw",x);
       HashMap<Integer, String> row = tableRows.get(x);
       for (Integer y : row.keySet()) {
+        int colI = y;
         String t = row.get(y);
-        //print("cell", x, y, t);
+        println("cell", colI, rowI, t);
         stroke(0);
         fill(255);
-        int x1=x-1;
-        rect(tx+x1*colW, ty+y*rowH, colW, rowH);
+        //int x1=x-1;
+        int xdest =(tx)+rowI*colW-colW;
+        int ydest =ty+y*rowH;
+        println("xdest",xdest," ydest",ydest);
+        rect(xdest, ydest, colW, rowH);
         // text
         fill(0);
-        text(t, tx+x1*colW+2, ty+y*rowH+20-2);
+        text(t, xdest+2, ydest+20-2);
       }
     }
     /*
@@ -46,12 +55,7 @@ class Grid {
      cell 5 1 cell 5 2 cell 5 3 cell 5 4
      */
 
-    // footer
-    //fill(30);
-    //rect(tx-2, ty-20, w+4, 20);
-    //fill(255);
-    //text("table footer", tx+2, ty);
-    //fill(255);
+    // footer?
   }
   public Grid() {
     this.cols=4;
@@ -59,7 +63,7 @@ class Grid {
 
     this.tableView = new GridView();
     tableRows = new HashMap();
-    for (int r=1; r<=rows; r++) {
+    for (int r=1; r<rows; r++) {
       HashMap<Integer, String> row = new HashMap<Integer, String>();
       for (int c=1; c<=cols; c++) {
         row.put(c, "");
@@ -94,7 +98,7 @@ class Grid {
   }
 
   public void toFile(String name) {
-    // save the table to file
+    // TODO save the table to file
     /*
     table = new Table();
      table.addColumn("id");
@@ -111,6 +115,6 @@ class Grid {
   // Table owns a table view
   private GridView tableView;
 
-  private int cols=0;
-  private int rows=0;
+  private final int cols;
+  private final int rows;
 }
